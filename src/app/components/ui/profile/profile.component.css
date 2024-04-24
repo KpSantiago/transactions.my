@@ -1,0 +1,6 @@
+.on {
+    box-shadow: 0 0 5px 0 #0f9, 0 0 8px 0 #0f9;
+}
+.off {
+    box-shadow: 0 0 5px 0 #f04, 0 0 8px 0 #f04;
+}

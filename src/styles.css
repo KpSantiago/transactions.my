@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind utilities;
+@tailwind variants;
+@tailwind base;
+
+body {
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+    background-color: #242729;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #5512cb;
+    border-radius: 4px;
+}
+
+@media (max-width: 872px) {
+    body {
+        overflow-y: auto;
+    }
+}

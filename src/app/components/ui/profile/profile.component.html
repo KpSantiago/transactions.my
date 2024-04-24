@@ -1,0 +1,49 @@
+<div class="h-full w-full flex flex-col items-center justify-start gap-2">
+  <strong
+    class="w-[90%] border-b-2 border-solid border-b-white/35 text-white/70"
+  >
+    <span>Profile</span>
+  </strong>
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold">User</span>
+    <span class="text-white">{{ user }}</span>
+  </div>
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold"
+      >Status ({{ user ? "online" : "offline" }})</span
+    >
+    <span class="flex items-center flex-row-reverse gap-1">
+      <p
+        class="{{
+          user
+            ? 'on bg-[#0f9] h-3 w-3 rounded-full'
+            : 'off bg-[#f04] h-3 w-3 rounded-full'
+        }}"
+      ></p>
+    </span>
+  </div>
+  @if(summary){
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold">Balance</span>
+    <span
+      class="{{
+        summary.amount.toString().indexOf('-') ? 'text-white' : 'text-[#f04]'
+      }}"
+      >{{ summary.amount }}</span
+    >
+  </div>
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold">Total transactions</span>
+    <span class="text-white">{{ summary.total }}</span>
+  </div>
+  } @else {
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold">Balance</span>
+    <span class="text-white">{{ "R$ 0,00" }}</span>
+  </div>
+  <div class="w-[90%] flex justify-between">
+    <span class="text-white/70 font-semibold">Total transactions</span>
+    <span class="text-white">{{ "0" }}</span>
+  </div>
+  }
+</div>

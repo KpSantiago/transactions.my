@@ -1,0 +1,15 @@
+<div class="h-[280px] bg-[#181a1b] rounded-xl shadow-md p-3">
+  @if (transactions) {
+  <apx-chart
+    [series]="chartOptions.series!"
+    [chart]="chartOptions.chart!"
+    [xaxis]="chartOptions.xaxis!"
+    [title]="chartOptions.title!"
+  >
+  </apx-chart>
+  } @else {
+  <div class="h-full w-full grid place-items-center text-white">
+    You don't added any transaction yet.
+  </div>
+  }
+</div>

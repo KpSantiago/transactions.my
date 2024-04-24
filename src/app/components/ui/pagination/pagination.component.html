@@ -1,0 +1,53 @@
+<div class="flex items-center gap-2">
+  <button
+    (click)="first()"
+    class="text-white hover:text-[#5512cb] duration-300 disabled:text-white/50"
+    [disabled]="isDisabled"
+  >
+    <iconify-icon
+      icon="fluent:align-end-horizontal-20-regular"
+      width="24"
+      height="24"
+      title="start"
+      class="rotate-180"
+    ></iconify-icon>
+  </button>
+  <button
+    (click)="previous()"
+    class="text-white hover:text-[#5512cb] duration-300 disabled:text-white/50"
+    [disabled]="isDisabled"
+  >
+    <iconify-icon
+      icon="solar:map-arrow-right-broken"
+      width="22"
+      height="22"
+      title="previous"
+      class="rotate-180"
+    ></iconify-icon>
+  </button>
+  <div class="h-8 font-bold text-white">{{ page }}/{{ pages }}</div>
+  <button
+    (click)="next()"
+    class="text-white hover:text-[#5512cb] duration-300 disabled:text-white/50"
+    [disabled]="isDisabledNext"
+  >
+    <iconify-icon
+      icon="solar:map-arrow-right-broken"
+      width="22"
+      height="22"
+      title="next"
+    ></iconify-icon>
+  </button>
+  <button
+    (click)="last()"
+    class="text-white hover:text-[#5512cb] duration-300 disabled:text-white/50"
+    [disabled]="isDisabledNext"
+  >
+    <iconify-icon
+      icon="fluent:align-end-horizontal-20-regular"
+      width="24"
+      height="24"
+      title="end"
+    ></iconify-icon>
+  </button>
+</div>

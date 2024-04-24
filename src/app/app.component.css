@@ -1,0 +1,112 @@
+/* .container {
+    min-height: 100%;
+} 
+ 1- 1242px - Tirar o infos
+ 2 - 1079px - tirar o profile
+*/
+
+main {
+    box-shadow: inset 0px 0px 15px 0px #0001;
+}
+
+.profile-button {
+    background-color: #5512cb;
+    color: #fff;
+    height: 40px;
+    width: fit-content;
+    display: none;
+    padding: 0 8px;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+    position: fixed;
+    z-index: 45;
+    top: 94px;
+    right: 0;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.profile-button:hover {
+    background-color: #470fa9;
+    color: #eeeeee;
+}
+
+.profile-button p {
+    background-color: #fff;
+    width: 24px;
+    height: 3px;
+    display: none;
+    border-radius: 2px;
+    opacity: 0;
+    transition: all .4s;
+}
+
+@media (max-width: 1242px) {
+    app-infos {
+        display: none;
+    }
+
+    .profile-button {
+        display: grid;
+        place-items: center;
+    }
+
+    .profile-button.actived iconify-icon {
+        opacity: 0;
+        display: none;
+    }
+
+    .profile-button.actived p {
+        display: block;
+        opacity: 1;
+    }
+
+    .profile-button.actived p:first-of-type {
+        transform: rotate(-45deg) translate(-7px, 6px);
+    }
+
+    .profile-button.actived p:nth-of-type(2) {
+        transform: rotate(45deg) translate(-7px, -7px);
+    }
+
+    .profile-button.actived {
+        top: 12px;
+    }
+
+    .profile-button.actived~app-infos {
+        width: 100%;
+        display: block;
+        position: fixed;
+        z-index: 44;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media (max-width: 1079px) {
+    app-profile profile .search,
+    app-profile profile .options {
+        display: none;
+    }
+
+    main {
+        padding-top: 32px;
+    }
+}
+
+@media (max-width: 872px) {
+    main {
+        height: fit-content;
+        padding-bottom: 32px;
+    }
+
+    .chart-and-transactions {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    app-categories,
+    app-all-transactions {
+        width: 100%;
+    }
+}

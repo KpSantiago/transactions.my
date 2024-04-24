@@ -1,0 +1,15 @@
+<div
+  class="h-full w-full flex flex-col justify-start items-center gap-8 bg-[#181a1b]"
+>
+  <app-profile class="w-full h-1/5"></app-profile>
+  <app-latest-transactions
+    class="w-full h-1/5"
+    [transactions]="transactions"
+    [sessionEnded]="sessionEnded"
+  ></app-latest-transactions>
+  <app-create-transaction
+    class="h-[230px] w-full"
+    (transactionsCreated)="changed()"
+  ></app-create-transaction>
+  <app-footer class="h-fit w-full"></app-footer>
+</div>

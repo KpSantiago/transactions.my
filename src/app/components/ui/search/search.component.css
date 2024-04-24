@@ -1,0 +1,42 @@
+.box {
+    opacity: 0;
+}
+
+input:focus~.box {
+    transition: .5s;
+    position: absolute;
+    bottom: -215px;
+    z-index: 10;
+    opacity: 1;
+}
+
+input:focus~select {
+    transition: .5s;
+    opacity: 1;
+}
+
+select:focus {
+    opacity: 1;
+}
+
+@media (max-width: 1079px) {
+    .box {
+        width: 90vw;
+        height: 40vh;
+        top: 60px;
+        left: -16px;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 495px) {
+    .s-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .box {
+        top: 80px;
+        overflow-y: auto;
+    }
+}

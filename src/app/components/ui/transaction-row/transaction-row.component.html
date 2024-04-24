@@ -1,0 +1,36 @@
+<div
+  class="w-full h-fit flex items-center gap-4"
+  title=" {{
+    'Category: ' + transaction.category + '; Type: ' + transaction.type
+  }}"
+>
+  <div
+    class="w-8 h-8 border-2 border-solid {{
+      icons[transaction.category].color
+    }} rounded-md"
+  >
+    <iconify-icon
+      icon="{{ icons[transaction.category].icon }}"
+      width="28"
+      height="28"
+    ></iconify-icon>
+  </div>
+  <div
+    class="text w-full flex flex-col {{ icons[transaction.category].color }}"
+  >
+    <span class="font-medium text-sm">{{ transaction.title }}</span>
+    <span class="text-[12px] text-white/50 font-semibold">{{
+      transaction.created_at
+    }}</span>
+  </div>
+  <span
+    class="min-w-fit text-right {{
+      transaction.type == 'credit' ? 'text-[#0d7]' : 'text-red-500'
+    }}"
+    >{{
+      transaction.type == "credit"
+        ? "+" + transaction.amount
+        : transaction.amount
+    }}</span
+  >
+</div>

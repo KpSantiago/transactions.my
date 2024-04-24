@@ -1,0 +1,18 @@
+<div class="h-[270px] bg-[#181a1b] rounded-xl shadow-md p-3">
+  @if (transactions && hasDebitTransactions && !sessionEnded) {
+  <apx-chart
+    [series]="chartOptions.series!"
+    [chart]="chartOptions.chart!"
+    [dataLabels]="chartOptions.dataLabels!"
+    [labels]="labels"
+    [title]="chartOptions.title!"
+    [theme]="chartOptions.apexTheme!"
+    [plotOptions]="chartOptions.plotOptions!"
+  >
+  </apx-chart>
+  } @else {
+  <div class="h-full w-full grid place-items-center text-white">
+    You haven't had any expenses yet.
+  </div>
+  }
+</div>

@@ -1,0 +1,18 @@
+<div class="h-full w-full flex flex-col items-center justify-start gap-2">
+  <strong
+    class="w-[90%] border-b-2 border-solid border-b-white/35 text-white/70"
+  >
+    Latest transactions
+  </strong>
+  @if (transactions && !sessionEnded) {
+  <div class="w-[90%] h-full mt-2 flex flex-col gap-2">
+    @for (t of transactions; track $index) {
+    <app-transaction-row class="w-full" [transaction]="t"></app-transaction-row>
+    }
+  </div>
+  } @else {
+  <div class="h-full w-full grid place-items-center text-white">
+    You don't added any transaction yet.
+  </div>
+  }
+</div>
