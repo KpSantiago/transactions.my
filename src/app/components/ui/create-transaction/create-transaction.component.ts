@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TrasactionsService } from '../../../../services/trasactions.service';
+import { TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
 import { CookieService } from 'ngx-cookie-service';
 
