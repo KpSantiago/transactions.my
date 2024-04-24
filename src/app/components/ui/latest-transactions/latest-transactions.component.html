@@ -4,7 +4,7 @@
   >
     Latest transactions
   </strong>
-  @if (transactions && !sessionEnded) {
+  @if (transactions && transactions.length > 0) {
   <div class="w-[90%] h-full mt-2 flex flex-col gap-2">
     @for (t of transactions; track $index) {
     <app-transaction-row class="w-full" [transaction]="t"></app-transaction-row>

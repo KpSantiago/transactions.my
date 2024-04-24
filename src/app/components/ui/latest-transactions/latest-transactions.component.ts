@@ -13,15 +13,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class LatestTransactionsComponent implements DoCheck {
-  @Input() sessionEnded?: boolean;
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   constructor(private cookieService: CookieService) { }
   isNull: boolean = this.cookieService.get('sessionId') ? false : true;
 
-
   ngDoCheck(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
-    if (this.transactions && !this.sessionEnded) {
+    if (this.transactions && this.transactions!.length > 0) {
       this.transactions = this.transactions.map(r => {
         r.amount = r.amount.toLocaleString('pt-BR', {
           style: 'currency',

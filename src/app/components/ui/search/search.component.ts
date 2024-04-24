@@ -23,7 +23,9 @@ export class SearchComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
+    if (JSON.parse(localStorage.getItem('request') || 'null')) {
+      this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
+    }
   }
 
   verifySearchedContent() {

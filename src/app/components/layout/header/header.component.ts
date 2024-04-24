@@ -1,5 +1,5 @@
-import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, EventEmitter, OnChanges, Output, ViewChild } from '@angular/core';
-import { TrasactionsService } from '../../../services/trasactions.service';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, OnChanges, Output, ViewChild } from '@angular/core';
+import { TrasactionsService } from '../../../../../services/trasactions.service';
 import { CookieService } from 'ngx-cookie-service';
 import { SearchComponent } from '../../ui/search/search.component';
 
@@ -13,14 +13,12 @@ import { SearchComponent } from '../../ui/search/search.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements AfterViewInit, OnChanges {
+export class HeaderComponent implements AfterViewInit, DoCheck {
   @Output() sessionEnded: EventEmitter<boolean> = new EventEmitter()
   @ViewChild('headerButton') headerButton!: ElementRef<HTMLElement>;
   constructor(private cookieService: CookieService, private tranctionsService: TrasactionsService) { }
   isUnknown: boolean = this.cookieService.get('sessionId') ? false : true
-  ngOnChanges(): void {
-    this.isUnknown = this.cookieService.get('sessionId') ? false : true
-  }
+
   ngAfterViewInit(): void {
     let headerBtn = this.headerButton.nativeElement
     headerBtn.addEventListener('click', (e) => {
@@ -32,12 +30,16 @@ export class HeaderComponent implements AfterViewInit, OnChanges {
     })
   }
 
+  ngDoCheck(): void {
+    this.isUnknown = this.cookieService.get('sessionId') ? false : true
+  }
+
   endSession() {
     if (!this.isUnknown) {
       this.tranctionsService.endSession().subscribe({
         next: async () => {
           this.cookieService.delete('sessionId');
-          
+
           let hasSessionId = this.cookieService.get('sessionId') ?? null
           if (!hasSessionId) {
             localStorage.removeItem('request');

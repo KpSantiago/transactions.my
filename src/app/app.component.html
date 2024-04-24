@@ -1,7 +1,4 @@
-<app-header
-  class="w-full"
-  (sessionEnded)="componentChanged($event)"
-></app-header>
+<app-header class="w-full"></app-header>
 <div class="container w-full h-full flex">
   <div class="profile-button" title="Profile" #profileButton>
     <iconify-icon
@@ -23,25 +20,21 @@
         class="min-w-[48.5%] max-w-full"
         [changed]="changeComponents"
         [transactions]="request"
-        [sessionEnded]="sessionEnded"
       ></app-categories>
       <app-all-transactions
         class="min-w-[48.5%] max-w-full"
         [transactions]="request"
-        [sessionEnded]="sessionEnded"
       ></app-all-transactions>
     </div>
     <app-expense-chart
       class="w-full"
       [changed]="changeComponents"
       [transactions]="request"
-      [sessionEnded]="sessionEnded"
     ></app-expense-chart>
   </main>
   <app-infos
     class="h-full w-[35%]"
     [transactions]="numberLimitedTransactions"
     (transactionsCreated)="componentChanged()"
-    [sessionEnded]="sessionEnded"
   ></app-infos>
 </div>

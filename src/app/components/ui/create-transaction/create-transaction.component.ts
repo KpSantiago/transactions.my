@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TrasactionsService } from '../../../services/trasactions.service';
+import { TrasactionsService } from '../../../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-transaction',
@@ -9,7 +10,7 @@ import { Transaction } from '../transaction-row/transaction-row.component';
   imports: [
     ReactiveFormsModule,
   ],
-  
+  providers: [CookieService],
   templateUrl: './create-transaction.component.html',
   styleUrl: './create-transaction.component.css'
 })
@@ -20,7 +21,7 @@ export class CreateTransactionComponent implements OnInit {
   transactionsForm!: FormGroup
   isLoad: boolean = false;
 
-  constructor(private fb: FormBuilder, private transactionsService: TrasactionsService) { }
+  constructor(private fb: FormBuilder, private transactionsService: TrasactionsService, private cookieService: CookieService) { }
 
 
   ngOnInit(): void {
@@ -48,19 +49,20 @@ export class CreateTransactionComponent implements OnInit {
 
     this.isLoad = true
     this.transactionsService.post(data).subscribe({
-      next: () => {
+      next: async (r) => {
+        if (r) {
+          let sessionId = r.sessionId;
+          this.cookieService.set("sessionId", sessionId.value, sessionId.maxAge, sessionId.path)
+        }
         localStorage.removeItem('request');
         localStorage.removeItem('limitedItems');
         this.formDir.resetForm()
-        this.transactionsCreated.emit()
       },
-      error: (e) => {
-        console.log(e)
-      },
+      error: (e) => { },
       complete: async () => {
         this.isLoad = false;
+        this.transactionsCreated.emit()
       }
     })
-
   }
 }

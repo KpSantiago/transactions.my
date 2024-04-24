@@ -20,7 +20,6 @@ export interface TransactionsRequestGetBody {
 })
 
 export class AllTransactionsComponent implements DoCheck {
-  @Input() sessionEnded?: boolean
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   transactionsPaginated?: Transaction[];
   pages: number = 1;
@@ -30,7 +29,7 @@ export class AllTransactionsComponent implements DoCheck {
 
   ngDoCheck(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
-    if (this.transactions && !this.sessionEnded) {
+    if (this.transactions && this.transactions!.length > 0) {
       this.page = Number(this.route.snapshot.queryParamMap.get('p') || 1)
       this.transactions.forEach(r => r.amount = r.amount.toLocaleString("pt-BR", {
         style: "currency",

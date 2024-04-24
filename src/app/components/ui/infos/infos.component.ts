@@ -4,6 +4,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { LatestTransactionsComponent } from '../latest-transactions/latest-transactions.component';
 import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-infos',
@@ -15,6 +16,9 @@ import { FooterComponent } from '../../layout/footer/footer.component';
     CreateTransactionComponent,
     FooterComponent
   ],
+  providers: [
+    CookieService
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './infos.component.html',
   styleUrls: ['./infos.component.css']
@@ -22,7 +26,6 @@ import { FooterComponent } from '../../layout/footer/footer.component';
 export class InfosComponent {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
   @Input() transactions!: Transaction[] | null;
-  @Input() sessionEnded?: boolean;
 
   changed() {
     this.transactionsCreated.emit()

@@ -5,7 +5,7 @@ import { InfosComponent } from './components/ui/infos/infos.component';
 import { AllTransactionsComponent } from './components/ui/all-transactions/all-transactions.component';
 import { CategoriesComponent } from './components/ui/categories/categories.component';
 import { ExpenseChartComponent } from './components/ui/expense-chart/expense-chart.component';
-import { TrasactionsService } from './services/trasactions.service';
+import { TrasactionsService } from '../../services/trasactions.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { Transaction } from './components/ui/transaction-row/transaction-row.component';
@@ -32,7 +32,7 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
   styleUrl: './app.component.css'
 })
 
-export class AppComponent implements OnInit, DoCheck, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   @ViewChild('profileButton') profileButton!: ElementRef<HTMLElement>
 
   constructor(private trasactionsService: TrasactionsService, private cookieService: CookieService) { }
@@ -40,7 +40,6 @@ export class AppComponent implements OnInit, DoCheck, AfterViewInit {
   request: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   numberLimitedTransactions: Transaction[] | null = JSON.parse(localStorage.getItem('limitedItems') || 'null');
   changeComponents: boolean = false;
-  sessionEnded: boolean = false;
 
   ngOnInit(): void {
     if ((!this.request || !this.numberLimitedTransactions) && this.cookieService.get("sessionId")) {
@@ -95,12 +94,12 @@ export class AppComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   ngDoCheck(): void {
-    if ((!localStorage.getItem('limitedItems') || !localStorage.getItem('request')) && this.cookieService.get('sessionId')) {
+    if ((!this.numberLimitedTransactions || !this.request) && this.cookieService.get('sessionId')) {
       this.componentChanged()
     }
   }
 
-  componentChanged(sessionEnded?: boolean) {
+  componentChanged() {
     if (this.cookieService.get("sessionId")) {
       this.trasactionsService.get().subscribe({
         next: async (r) => {

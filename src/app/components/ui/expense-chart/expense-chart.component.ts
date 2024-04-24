@@ -31,16 +31,15 @@ export type ChartOptions = {
 })
 export class ExpenseChartComponent implements OnChanges, OnInit {
   @Input() changed: boolean = false;
-  @Input() sessionEnded?: boolean;
   @ViewChild('chart') chart!: ChartComponent;
   @Input() transactions?: Transaction[] | null;
   chartOptions!: Partial<ChartOptions>;
   constructor(private cookieService: CookieService) { }
-  isNull: boolean = this.cookieService.get('sessionId') ? false : true;
 
   ngOnInit(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
-    if (this.transactions && !this.sessionEnded) {
+
+    if (this.transactions && this.transactions.length > 0) {
       let date = new Date()
       let thisMonth = date.getMonth() + 1
       let thisYear = date.getFullYear()
@@ -67,7 +66,7 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
 
   ngOnChanges(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
-    if (this.changed == true && this.transactions && !this.sessionEnded) {
+    if (this.changed == true && this.transactions && this.transactions.length > 0) {
       let date = new Date()
       let thisMonth = date.getMonth() + 1
       let thisYear = date.getFullYear()

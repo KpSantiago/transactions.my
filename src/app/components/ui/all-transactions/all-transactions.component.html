@@ -3,7 +3,7 @@
     <strong class="text-white">All transactions</strong>
     <app-pagination [pages]="pages" [page]="page"></app-pagination>
   </div>
-  @if (transactions && !sessionEnded){
+  @if (transactions && transactions.length > 0){
   <div class="w-full h-full mt-4 flex flex-col gap-2">
     @for (t of transactionsPaginated; track $index) {
     <app-transaction-row class="w-full" [transaction]="t"></app-transaction-row>
