@@ -16,6 +16,7 @@ export type ChartOptions = {
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
 }
+
 @Component({
   selector: 'app-expense-chart',
   standalone: true,
@@ -29,6 +30,7 @@ export type ChartOptions = {
   templateUrl: './expense-chart.component.html',
   styleUrls: ['./expense-chart.component.css']
 })
+
 export class ExpenseChartComponent implements OnChanges, OnInit {
   @Input() changed: boolean = false;
   @ViewChild('chart') chart!: ChartComponent;
