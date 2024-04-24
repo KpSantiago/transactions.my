@@ -10,7 +10,6 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     ReactiveFormsModule,
   ],
-  providers: [CookieService],
   templateUrl: './create-transaction.component.html',
   styleUrl: './create-transaction.component.css'
 })

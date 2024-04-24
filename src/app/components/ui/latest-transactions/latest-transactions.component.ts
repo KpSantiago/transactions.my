@@ -5,7 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-latest-transactions',
   standalone: true,
-  providers: [CookieService],
   imports: [TransactionRowComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './latest-transactions.component.html',

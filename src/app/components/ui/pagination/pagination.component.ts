@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
+
 export class PaginationComponent implements OnChanges {
   @Input() page: number = 1;
   @Input() pages: number = 1;

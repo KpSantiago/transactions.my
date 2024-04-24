@@ -16,13 +16,11 @@ import { CookieService } from 'ngx-cookie-service';
     CreateTransactionComponent,
     FooterComponent
   ],
-  providers: [
-    CookieService
-  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './infos.component.html',
   styleUrls: ['./infos.component.css']
 })
+
 export class InfosComponent {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
   @Input() transactions!: Transaction[] | null;

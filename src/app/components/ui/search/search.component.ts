@@ -12,6 +12,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
+
 export class SearchComponent implements OnInit, DoCheck {
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   searchedItems: Transaction[] | null | undefined = [];

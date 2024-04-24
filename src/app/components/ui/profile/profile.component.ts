@@ -5,10 +5,10 @@ import { CookieService } from 'ngx-cookie-service';
   selector: 'app-profile',
   standalone: true,
   imports: [],
-  providers: [CookieService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
+
 export class ProfileComponent implements DoCheck {
   constructor(private cookieService: CookieService) { }
   user: string = '';

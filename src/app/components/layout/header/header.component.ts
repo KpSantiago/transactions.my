@@ -13,6 +13,7 @@ import { SearchComponent } from '../../ui/search/search.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements AfterViewInit, DoCheck {
   @Output() sessionEnded: EventEmitter<boolean> = new EventEmitter()
   @ViewChild('headerButton') headerButton!: ElementRef<HTMLElement>;

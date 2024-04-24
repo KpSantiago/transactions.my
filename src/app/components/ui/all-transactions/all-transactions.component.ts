@@ -13,7 +13,6 @@ export interface TransactionsRequestGetBody {
   selector: 'app-all-transactions',
   standalone: true,
   imports: [TransactionRowComponent, PaginationComponent],
-  providers: [CookieService],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './all-transactions.component.html',
   styleUrls: ['./all-transactions.component.css']

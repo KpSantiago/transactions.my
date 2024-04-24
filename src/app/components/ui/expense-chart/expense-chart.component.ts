@@ -26,7 +26,6 @@ export type ChartOptions = {
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [CookieService],
   templateUrl: './expense-chart.component.html',
   styleUrls: ['./expense-chart.component.css']
 })

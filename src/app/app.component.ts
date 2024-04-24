@@ -25,9 +25,6 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [
-    CookieService,
-  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -32,10 +32,10 @@ export interface ChartOptions {
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [CookieService],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })
+
 export class CategoriesComponent implements OnInit, OnChanges {
   @ViewChild('chart') chart!: ChartComponent;
   @Input() changed: boolean = false;
