@@ -5,7 +5,7 @@ import { InfosComponent } from './components/ui/infos/infos.component';
 import { AllTransactionsComponent } from './components/ui/all-transactions/all-transactions.component';
 import { CategoriesComponent } from './components/ui/categories/categories.component';
 import { ExpenseChartComponent } from './components/ui/expense-chart/expense-chart.component';
-import { TrasactionsService } from './services/trasactions.service';
+import { TrasactionsService } from '../services/trasactions.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { Transaction } from './components/ui/transaction-row/transaction-row.component';
@@ -26,7 +26,8 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    CookieService
+    CookieService,
+    TrasactionsService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

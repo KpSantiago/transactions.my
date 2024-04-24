@@ -1,5 +1,5 @@
 import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, OnChanges, Output, ViewChild } from '@angular/core';
-import { TrasactionsService } from '../../../services/trasactions.service';
+import { TrasactionsService } from '../../../../services/trasactions.service';
 import { CookieService } from 'ngx-cookie-service';
 import { SearchComponent } from '../../ui/search/search.component';
 
