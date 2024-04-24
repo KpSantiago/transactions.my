@@ -7,6 +7,8 @@ import { environment } from '../../environments/environment.development';
 
 type CreateTransactions = undefined | null | { sessionId: { value: string; maxAge: number; path: string } }
 
+let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,25 +18,25 @@ export class TrasactionsService {
   private baseUrl = environment.apiUrl;
   get(): Observable<TransactionsRequestGetBody> {
     return this.http.get<TransactionsRequestGetBody>(`${this.baseUrl}/transactions/`, {
-      withCredentials: true
+      headers: headers, withCredentials: true
     })
   }
 
   summary(): Observable<{ summary: { total: number; amount: number | string } }> {
     return this.http.get<{ summary: { total: number; amount: number } }>(`${this.baseUrl}/transactions/summary`, {
-      withCredentials: true
+      headers: headers, withCredentials: true
     })
   }
 
   post(data: Transaction): Observable<CreateTransactions> {
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, data, {
-      withCredentials: true
+      headers: headers, withCredentials: true
     })
   }
 
   endSession(): Observable<any> {
     return this.http.put(`${this.baseUrl}/transactions/end-session`, {}, {
-      withCredentials: true
+      headers: headers, withCredentials: true
     })
   }
 }

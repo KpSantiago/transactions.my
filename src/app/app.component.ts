@@ -27,7 +27,6 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
   ],
   providers: [
     CookieService,
-    TrasactionsService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -41,9 +40,10 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   request: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   numberLimitedTransactions: Transaction[] | null = JSON.parse(localStorage.getItem('limitedItems') || 'null');
   changeComponents: boolean = false;
+  hasSessionId: string | undefined = this.cookieService.get("sessionId");
 
   ngOnInit(): void {
-    if ((!this.request || !this.numberLimitedTransactions) && this.cookieService.get("sessionId")) {
+    if ((!this.request || !this.numberLimitedTransactions) && this.hasSessionId) {
       this.trasactionsService.get().subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
@@ -95,13 +95,14 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if ((!this.numberLimitedTransactions || !this.request) && this.cookieService.get('sessionId')) {
+    this.hasSessionId = this.cookieService.get('sessionId');
+    if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
       this.componentChanged()
     }
   }
 
   componentChanged() {
-    if (this.cookieService.get("sessionId")) {
+    if (this.hasSessionId) {
       this.trasactionsService.get().subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
