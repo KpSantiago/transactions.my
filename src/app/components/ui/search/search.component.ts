@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit, DoCheck {
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   searchedItems: Transaction[] | null | undefined = [];
   selectForm!: FormGroup;
+  
   ngOnInit(): void {
     this.selectForm = new FormGroup({
       select: new FormControl('title'),

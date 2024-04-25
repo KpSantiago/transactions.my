@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CreateTransactions, TrasactionsService } from '../../../services/trasactions.service';
+import { TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-create-transaction',
@@ -19,9 +17,11 @@ import { environment } from '../../../../environments/environment.development';
   styleUrl: './create-transaction.component.css'
 })
 
-export class CreateTransactionComponent implements OnInit {
+export class CreateTransactionComponent implements OnInit, DoCheck {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
   @ViewChild('formDir') formDir!: NgForm
+  @Input() tranactionToUpdate?: Transaction | undefined | null;
+
   transactionsForm!: FormGroup
   isLoad: boolean = false;
 
@@ -36,7 +36,16 @@ export class CreateTransactionComponent implements OnInit {
       type: ['', [Validators.required]],
     })
   }
-
+  ngDoCheck(): void {
+    if (this.tranactionToUpdate) {
+      this.transactionsForm = this.fb.group({
+        title: [this.tranactionToUpdate.title, [Validators.required]],
+        amount: [parseInt(this.tranactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, '')), [Validators.required]],
+        category: [this.tranactionToUpdate.category, [Validators.required]],
+        type: [this.tranactionToUpdate.type, [Validators.required]],
+      })
+    }
+  }
   async onSubmit() {
     if (this.transactionsForm.invalid) {
       setTimeout(() => { this.formDir.resetForm(); this.isLoad = false }, 3000)
@@ -52,19 +61,35 @@ export class CreateTransactionComponent implements OnInit {
     let data: Transaction = { ...this.transactionsForm.value, amount };
 
     this.isLoad = true
-    let sessionId = localStorage.getItem('sessionId')
-    this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
-      next: (r) => {
-        if (r) {
-          localStorage.setItem('sessionId', r.sessionId)
+    let sessionId = localStorage.getItem('sessionId');
+
+    if (this.tranactionToUpdate) {
+      this.transactionsService.update(data, sessionId!).subscribe({
+        complete: () => {
+          localStorage.removeItem('request');
+          localStorage.removeItem('limitedItems');
+          this.formDir.resetForm()
+          this.transactionsCreated.emit()
+          this.isLoad = false;
         }
-        localStorage.removeItem('request');
-        localStorage.removeItem('limitedItems');
-        this.formDir.resetForm()
-        this.transactionsCreated.emit()
-        this.isLoad = false;
-      },
-      error: () => { },
-    })
+      })
+    } else {
+      this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
+        next: (r) => {
+          if (r) {
+            localStorage.setItem('sessionId', r.sessionId)
+          }
+        },
+        error: () => { },
+        complete: () => {
+          localStorage.removeItem('request');
+          localStorage.removeItem('limitedItems');
+          this.formDir.resetForm()
+          this.transactionsCreated.emit()
+          this.isLoad = false;
+        }
+      })
+    }
+
   }
 }

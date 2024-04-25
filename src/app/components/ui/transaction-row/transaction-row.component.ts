@@ -1,4 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
 
 export interface Transaction {
   id: string;
@@ -13,15 +14,20 @@ export interface Transaction {
 @Component({
   selector: 'app-transaction-row',
   standalone: true,
-  imports: [],
+  imports: [CreateTransactionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './transaction-row.component.html',
   styleUrl: './transaction-row.component.css'
 })
 
 
-export class TransactionRowComponent {
+export class TransactionRowComponent implements AfterViewInit {
+  @ViewChild('popup') popup!: ElementRef<HTMLElement>
+  @ViewChild('trion') trion!: ElementRef<HTMLElement>
+  @ViewChild('parentPopUp') parentPopUp!: ElementRef<HTMLElement>
+
   @Input() transaction!: Transaction;
+  transactionToUpdate!: Transaction | null;
   icons: {
     [key: string]: {
       icon: string
@@ -35,4 +41,28 @@ export class TransactionRowComponent {
       'job': { icon: 'material-symbols:work-history-rounded', color: 'border-[#a9d] text-[#a9d] bg-[#a9d3]' },
       'others': { icon: 'mdi:dots-grid', color: 'border-[#ddd9] text-[#ddd9] bg-[#ddd3]' }
     }
+
+  ngAfterViewInit(): void {
+    const popup = this.popup.nativeElement;
+    const transaction = this.trion.nativeElement;
+    transaction.addEventListener('dblclick', () => {
+      popup.classList.add('actived')
+      this.transactionToUpdate = this.transaction;
+      localStorage.setItem('updt-transaction-id', this.transactionToUpdate.id);
+      this.parentPopUp.nativeElement.style.display = 'grid'
+      document.addEventListener('keydown', (e) => {
+        if (e.code == 'Escape') {
+          this.transactionToUpdate = null;
+          localStorage.removeItem('updt-transaction-id');
+          this.parentPopUp.nativeElement.style.display = 'none'
+        }
+      })
+      popup.addEventListener('click', () => {
+        this.transactionToUpdate = null;
+        localStorage.removeItem('updt-transaction-id');
+        this.parentPopUp.nativeElement.style.display = 'none'
+      })
+    })
+
+  }
 }

@@ -1,8 +1,11 @@
-<div class="s-container w-fit h-fit text-white flex gap-2" [formGroup]="selectForm">
+<div
+  class="s-container w-fit h-fit text-white flex gap-2"
+  [formGroup]="selectForm"
+>
   <input
     type="search"
     placeholder="Search for transactions"
-    (keypress)="search($event)"
+    (input)="search($event)"
     (click)="verifySearchedContent()"
     class="h-8 px-2 w-[300px] rounded-full border-solid border-2 bg-[#181a1b] border-white/50 outline-[#5512cb]"
   />

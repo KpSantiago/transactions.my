@@ -12,8 +12,10 @@ export type CreateTransactions = undefined | null | { sessionId: string }
 })
 
 export class TrasactionsService {
-  constructor(private http: HttpClient) { }
   private baseUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) { }
+
   get(sessionId: string): Observable<TransactionsRequestGetBody> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Sessionid': `${sessionId}` })
 
@@ -35,7 +37,16 @@ export class TrasactionsService {
     if (sessionId) {
       headers = headers.append('Sessionid', sessionId)
     }
+
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, JSON.stringify(data), {
+      headers: headers,
+    })
+  }
+
+  update(data: Transaction, sessionId?: string): Observable<CreateTransactions> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Sessionid': sessionId! })
+
+    return this.http.patch<CreateTransactions>(`${this.baseUrl}/transactions/`, JSON.stringify(data), {
       headers: headers,
     })
   }
