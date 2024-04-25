@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngOnInit(): void {
     if ((!this.request || !this.numberLimitedTransactions) && this.hasSessionId) {
-      this.trasactionsService.get(this.hasSessionId).subscribe({
+      this.trasactionsService.get().subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
           this.request = r.transactions;
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         }
       })
 
-      this.trasactionsService.summary(this.hasSessionId).subscribe({
+      this.trasactionsService.summary().subscribe({
         next: async (r) => {
           r.summary.amount = r.summary.amount.toLocaleString("pt-BR", {
             style: "currency",
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   componentChanged() {
     if (this.hasSessionId) {
-      this.trasactionsService.get(this.hasSessionId).subscribe({
+      this.trasactionsService.get().subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
           this.request = r.transactions;
@@ -127,7 +127,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         }
       })
 
-      this.trasactionsService.summary(this.hasSessionId).subscribe({
+      this.trasactionsService.summary().subscribe({
         next: async (r) => {
           r.summary.amount = r.summary.amount.toLocaleString("pt-BR", {
             style: "currency",

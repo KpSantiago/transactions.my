@@ -14,11 +14,8 @@ type CreateTransactions = undefined | null | { sessionId: { value: string; maxAg
 export class TrasactionsService {
   constructor(private http: HttpClient) { }
   private baseUrl = environment.apiUrl;
-  get(cookie: string): Observable<TransactionsRequestGetBody> {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8',
-      "Cookie": cookie
-    })
+  get(): Observable<TransactionsRequestGetBody> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
 
     return this.http.get<TransactionsRequestGetBody>(`${this.baseUrl}/transactions/`, {
       headers: headers,
@@ -26,11 +23,8 @@ export class TrasactionsService {
     })
   }
 
-  summary(cookie: string): Observable<{ summary: { total: number; amount: number | string } }> {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8',
-      "Cookie": cookie
-    })
+  summary(): Observable<{ summary: { total: number; amount: number | string } }> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
 
     return this.http.get<{ summary: { total: number; amount: number } }>(`${this.baseUrl}/transactions/summary`, {
       headers: headers,
@@ -39,7 +33,7 @@ export class TrasactionsService {
   }
 
   post(data: Transaction): Observable<CreateTransactions> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', })
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
 
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, data, {
       headers: headers,
@@ -47,7 +41,7 @@ export class TrasactionsService {
   }
 
   endSession(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', })
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
 
     return this.http.put(`${this.baseUrl}/transactions/end-session`, {}, {
       headers: headers,
