@@ -26,9 +26,7 @@ export class SearchComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (JSON.parse(localStorage.getItem('request') || 'null')) {
-      this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
-    }
+    this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
   }
 
   verifySearchedContent() {
@@ -44,13 +42,16 @@ export class SearchComponent implements OnInit, DoCheck {
 
       this.searchedItems = this.transactions.filter(r => {
 
-        return r[select].toString().replaceAll('R$ ', '').toLowerCase().includes(target.value.toLowerCase())
+        return r[select].toString().toLowerCase().includes(target.value.toLowerCase())
+      })
 
+      this.searchedItems = this.searchedItems.map(r => {
+        r.amount = r.amount.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        })
+        return r;
       })
     }
-  }
-
-  changed() {
-    this.transactionsUpdated.emit()
   }
 }

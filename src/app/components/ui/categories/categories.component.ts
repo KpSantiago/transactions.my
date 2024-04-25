@@ -47,6 +47,16 @@ export class CategoriesComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.transactions && this.transactions!.length > 0) {
       this.hasDebitTransactions = this.transactions.find(t => t.type == 'debit') ? true : false;
+      this.transactions = this.transactions.map(t => {
+        t.amount = t.amount.toString().replaceAll(/[\-+R$]/g, '')
+          .replaceAll('.', ',')
+          .split(',')
+          .slice(0, 1)
+          .toString()
+          .replace(',', '').trim();
+
+        return t
+      })
       let amounts: number[] = []
       let labels: string[] = []
       this.transactions.forEach((r) => {
@@ -70,6 +80,16 @@ export class CategoriesComponent implements OnInit, OnChanges {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
     if (this.changed == true && this.transactions && this.transactions!.length > 0) {
       this.hasDebitTransactions = this.transactions.find(t => t.type == 'debit') ? true : false;
+      this.transactions = this.transactions.map(t => {
+        t.amount = t.amount.toString().replaceAll(/[\-+R$]/g, '')
+          .replaceAll('.', ',')
+          .split(',')
+          .slice(0, 1)
+          .toString()
+          .replace(',', '').trim();
+
+        return t
+      })
       let amounts: number[] = []
       let labels: string[] = []
       this.transactions.forEach((r) => {

@@ -31,7 +31,7 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
   styleUrl: './app.component.css'
 })
 
-export class AppComponent implements OnInit, AfterViewInit, DoCheck {
+export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('profileButton') profileButton!: ElementRef<HTMLElement>
 
   constructor(private trasactionsService: TrasactionsService) { }
@@ -100,14 +100,10 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         document.querySelector('body')!.style.overflowY = 'auto'
       }
     })
-
-  }
-
-  ngDoCheck(): void {
-    this.hasSessionId = localStorage.getItem('sessionId');
   }
 
   componentChanged() {
+    this.hasSessionId = localStorage.getItem('sessionId');
     if (this.hasSessionId) {
       this.trasactionsService.get(this.hasSessionId).subscribe({
         next: async (r) => {

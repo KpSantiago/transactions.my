@@ -28,10 +28,10 @@ export class UpdateTransactionComponent implements OnInit {
   ngOnInit(): void {
     this.transactionToUpdate = JSON.parse(localStorage.getItem('updt-transaction') || 'null')
     this.transactionsUpdateForm = this.fb.group({
-      title: [this.transactionToUpdate!.title, [Validators.required]],
-      amount: [this.transactionToUpdate!.amount, [Validators.required]],
-      category: [this.transactionToUpdate!.category, [Validators.required]],
-      type: [this.transactionToUpdate!.type, [Validators.required]],
+      title: [this.transactionToUpdate?.title ? this.transactionToUpdate.title : '', [Validators.required]],
+      amount: [this.transactionToUpdate?.amount ? this.transactionToUpdate.amount : '', [Validators.required]],
+      category: [this.transactionToUpdate?.category ? this.transactionToUpdate.category : '', [Validators.required]],
+      type: [this.transactionToUpdate?.type ? this.transactionToUpdate.type : '', [Validators.required]],
     })
   }
 
@@ -41,30 +41,28 @@ export class UpdateTransactionComponent implements OnInit {
 
       return;
     }
-    if (this.transactionToUpdate) {
-      let amount = Number(this.transactionsUpdateForm.value['amount'])
-      if (isNaN(amount)) {
-        this.transactionsUpdateForm.setErrors(Validators.requiredTrue)
-        return;
-      }
-      let data: Transaction = { ...this.transactionsUpdateForm.value, amount };
-
-      this.isLoad = true
-      let sessionId = localStorage.getItem('sessionId');
-
-      this.transactionsService.update({ ...data, id: this.transactionToUpdate.id }, sessionId!).subscribe({
-        next: () => { },
-        error: () => { },
-        complete: () => {
-          localStorage.removeItem('request');
-          localStorage.removeItem('limitedItems');
-          localStorage.removeItem('summary');
-          localStorage.removeItem('updt-transaction')
-          this.isLoad = false;
-          this.formDir.resetForm()
-          this.transactionsUpdated.emit()
-        }
-      })
+    let amount = Number(this.transactionsUpdateForm.value['amount'])
+    if (isNaN(amount)) {
+      this.transactionsUpdateForm.setErrors(Validators.requiredTrue)
+      return;
     }
+    let data: Transaction = { ...this.transactionsUpdateForm.value, amount };
+    this.isLoad = true
+    let sessionId = localStorage.getItem('sessionId');
+
+    this.transactionsService.update({ ...data, id: this.transactionToUpdate!.id }, sessionId!).subscribe({
+      next: () => {
+        localStorage.removeItem('request');
+        localStorage.removeItem('limitedItems');
+        localStorage.removeItem('summary');
+        localStorage.removeItem('updt-transaction')
+      },
+      error: () => { },
+      complete: () => {
+        this.formDir.resetForm()
+        this.isLoad = false;
+        this.transactionsUpdated.emit()
+      }
+    })
   }
 }

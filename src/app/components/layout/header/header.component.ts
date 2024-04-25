@@ -41,7 +41,6 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
     if (!this.isUnknown) {
       this.tranctionsService.endSession(localStorage.getItem('sessionId')!).subscribe({
         next: async () => {
-
             localStorage.removeItem('request');
             localStorage.removeItem('limitedItems')
             localStorage.removeItem('summary');

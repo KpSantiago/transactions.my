@@ -40,6 +40,16 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
 
     if (this.transactions && this.transactions.length > 0) {
+      this.transactions = this.transactions.map(t => {
+        t.amount = t.amount.toString().replaceAll(/[\-+R$]/g, '')
+          .replaceAll('.', ',')
+          .split(',')
+          .slice(0, 1)
+          .toString()
+          .replace(',', '').trim();
+
+        return t
+      })
       let date = new Date()
       let thisMonth = date.getMonth() + 1
       let thisYear = date.getFullYear()
@@ -65,8 +75,18 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(): void {
-    this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
+    this.transactions = JSON.parse(localStorage.getItem('request') || 'null');
     if (this.changed == true && this.transactions && this.transactions.length > 0) {
+      this.transactions = this.transactions.map(t => {
+        t.amount = t.amount.toString().replaceAll(/[\-+R$]/g, '')
+          .replaceAll('.', ',')
+          .split(',')
+          .slice(0, 1)
+          .toString()
+          .replace(',', '').trim();
+
+        return t
+      })
       let date = new Date()
       let thisMonth = date.getMonth() + 1
       let thisYear = date.getFullYear()

@@ -56,18 +56,18 @@ export class CreateTransactionComponent implements OnInit {
         if (r) {
           localStorage.setItem('sessionId', r.sessionId)
         }
-      },
-      error: () => { },
-      complete: () => {
         localStorage.removeItem('request');
         localStorage.removeItem('limitedItems');
         localStorage.removeItem('summary');
+      },
+      error: () => { },
+      complete: () => {
         this.formDir.resetForm()
-        this.transactionsCreated.emit()
         this.isLoad = false;
+        this.transactionsCreated.emit()
       }
     })
 
   }
-  
+
 }

@@ -26,6 +26,7 @@ export class TransactionRowComponent implements AfterViewInit {
   @ViewChild('popup') popup!: ElementRef<HTMLElement>
   @ViewChild('trion') trion!: ElementRef<HTMLElement>
   @ViewChild('parentPopUp') parentPopUp!: ElementRef<HTMLElement>
+  @Input() canOpenModal: boolean = true;
 
   @Input() transaction!: Transaction;
   transactionToUpdate!: Transaction | null;
@@ -45,25 +46,20 @@ export class TransactionRowComponent implements AfterViewInit {
       'others': { icon: 'mdi:dots-grid', color: 'border-[#ddd9] text-[#ddd9] bg-[#ddd3]' }
     }
 
-  ngOnInit() {
-    this.transactionToUpdate = this.transaction;
-    this.transactionToUpdate!.amount = this.transactionToUpdate!.amount.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    })
-      .replaceAll(/[\-+R$]/g, '')
-      .replaceAll('.', ',')
-      .split(',')
-      .slice(0, 2)
-      .toString()
-      .replace(',', '').trim();
-  }
-
   ngAfterViewInit(): void {
     const popup = this.popup.nativeElement;
     const transaction = this.trion.nativeElement;
 
     transaction.addEventListener('dblclick', () => {
+      this.transactionToUpdate = this.transaction;
+      this.transactionToUpdate!.amount = this.transactionToUpdate!.amount
+        .toString()
+        .replaceAll(/[\-+R$]/g, '')
+        .replaceAll('.', ',')
+        .split(',')
+        .slice(0, 1)
+        .toString()
+        .replace(',', '').trim();
       popup.classList.add('actived')
       this.canOpenPopUp = true
 
