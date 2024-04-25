@@ -18,7 +18,7 @@ import { SearchComponent } from '../../ui/search/search.component';
 })
 
 export class HeaderComponent implements AfterViewInit, DoCheck {
-  @Output() sessionEnded: EventEmitter<boolean> = new EventEmitter()
+  @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   @ViewChild('headerButton') headerButton!: ElementRef<HTMLElement>;
   constructor(private cookieService: CookieService, private tranctionsService: TrasactionsService) { }
   isUnknown: boolean = localStorage.getItem('sessionId') ? false : true
@@ -55,5 +55,8 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
         }
       })
     }
+  }
+  change() {
+    this.transactionsUpdated.emit()
   }
 }

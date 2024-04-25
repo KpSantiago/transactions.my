@@ -5,6 +5,7 @@
   <app-latest-transactions
     class="w-full h-1/5"
     [transactions]="transactions"
+    (transactionsUpdated)="changed()"
   ></app-latest-transactions>
   <app-create-transaction
     class="h-[230px] w-full"

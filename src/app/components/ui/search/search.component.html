@@ -23,7 +23,7 @@
     class="box absolute z-[-1] flex flex-col gap-3 bottom-[-190px] overflow-auto left-[-50px] bg-[#242729] w-[400px] h-[200px] rounded-xl shadow-xl shadow-[#181818aa] p-2"
   >
     @for (t of searchedItems; track $index) {
-    <app-transaction-row [transaction]="t"></app-transaction-row>
+    <app-transaction-row [transaction]="t" (transactionsUpdated)="changed()"></app-transaction-row>
     }
   </div>
 </div>

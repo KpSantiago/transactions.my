@@ -1,10 +1,10 @@
 <form
   class="h-full w-full flex flex-wrap items-center justify-center gap-6"
   (ngSubmit)="onSubmit()"
-  [formGroup]="transactionsForm"
+  [formGroup]="transactionsUpdateForm"
   #formDir="ngForm"
 >
-  @if (formDir.submitted && transactionsForm.invalid) {
+  @if (formDir.submitted && transactionsUpdateForm.invalid) {
   <div
     class="error-below bg-[#f043] border-2 border-solid border-[#f04] text-[#f04] p-2 rounded-md"
   >
@@ -14,13 +14,12 @@
   <strong
     class="w-[90%] border-b-2 border-solid border-b-white/35 bg-[#181a1b] text-white/70"
   >
-    Add a transaction
+    Update transaction
   </strong>
   <div class="w-[45%] max-w-[400px]">
     <input
       type="text"
       formControlName="title"
-      placeholder="Transaction title"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
@@ -28,13 +27,11 @@
     <input
       type="text"
       formControlName="amount"
-      placeholder="Transaction amuount"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
   <div class="w-[45%] max-w-[400px]">
     <select
-      formControlName="type"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction type</option>
@@ -44,7 +41,6 @@
   </div>
   <div class="w-[45%] max-w-[400px]">
     <select
-      formControlName="category"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction category</option>
@@ -83,7 +79,7 @@
   <button
     class="w-4/5 h-8 max-w-[400px] bg-[#5512cb] hover:bg-[#351d5f] duration-300 rounded-md font-semibold text-white"
   >
-     Add
+    Update
   </button>
   }
 </form>

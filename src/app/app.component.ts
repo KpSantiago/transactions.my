@@ -96,9 +96,9 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngDoCheck(): void {
     this.hasSessionId = localStorage.getItem('sessionId');
-    if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
-      this.componentChanged()
-    }
+    // if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
+    //   this.componentChanged()
+    // }
   }
 
   componentChanged() {

@@ -1,4 +1,7 @@
-<app-header class="w-full"></app-header>
+<app-header
+  class="w-full"
+  (transactionsUpdated)="componentChanged()"
+></app-header>
 <div class="container w-full h-full flex">
   <div class="profile-button" title="Profile" #profileButton>
     <iconify-icon
@@ -24,6 +27,7 @@
       <app-all-transactions
         class="min-w-[48.5%] max-w-full"
         [transactions]="request"
+        (transactionsUpdated)="componentChanged()"
       ></app-all-transactions>
     </div>
     <app-expense-chart
@@ -36,5 +40,6 @@
     class="h-full w-[35%]"
     [transactions]="numberLimitedTransactions"
     (transactionsCreated)="componentChanged()"
+    (transactionsUpdated)="componentChanged()"
   ></app-infos>
 </div>

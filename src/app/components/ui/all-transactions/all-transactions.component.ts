@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { Transaction, TransactionRowComponent } from '../transaction-row/transaction-row.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,7 @@ export interface TransactionsRequestGetBody {
 })
 
 export class AllTransactionsComponent implements DoCheck {
+  @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   transactionsPaginated?: Transaction[];
   pages: number = 1;
@@ -37,5 +38,9 @@ export class AllTransactionsComponent implements DoCheck {
       this.transactionsPaginated = this.transactions.slice((this.page - 1) * 4, this.page * 4)
       this.pages = Math.ceil(this.transactions.length / 4)
     }
+  }
+
+  changed() {
+    this.transactionsUpdated.emit()
   }
 }

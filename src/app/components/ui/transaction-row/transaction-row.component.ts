@@ -1,5 +1,5 @@
-import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { UpdateTransactionComponent } from '../update-transaction/update-transaction.component';
 
 export interface Transaction {
   id: string;
@@ -14,7 +14,7 @@ export interface Transaction {
 @Component({
   selector: 'app-transaction-row',
   standalone: true,
-  imports: [CreateTransactionComponent],
+  imports: [UpdateTransactionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './transaction-row.component.html',
   styleUrl: './transaction-row.component.css'
@@ -22,12 +22,15 @@ export interface Transaction {
 
 
 export class TransactionRowComponent implements AfterViewInit {
+  @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   @ViewChild('popup') popup!: ElementRef<HTMLElement>
   @ViewChild('trion') trion!: ElementRef<HTMLElement>
   @ViewChild('parentPopUp') parentPopUp!: ElementRef<HTMLElement>
 
   @Input() transaction!: Transaction;
   transactionToUpdate!: Transaction | null;
+  canOpenPopUp: boolean = false;
+
   icons: {
     [key: string]: {
       icon: string
@@ -42,28 +45,51 @@ export class TransactionRowComponent implements AfterViewInit {
       'others': { icon: 'mdi:dots-grid', color: 'border-[#ddd9] text-[#ddd9] bg-[#ddd3]' }
     }
 
+  ngOnInit() {
+    this.transactionToUpdate = this.transaction;
+
+    this.transactionToUpdate!.amount = this.transactionToUpdate!.amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    })
+      .replaceAll(/[\-+R$]/g, '')
+      .replaceAll('.', ',')
+      .split(',')
+      .slice(0, 2)
+      .toString()
+      .replace(',', '').trim();
+  }
+
   ngAfterViewInit(): void {
     const popup = this.popup.nativeElement;
     const transaction = this.trion.nativeElement;
+
     transaction.addEventListener('dblclick', () => {
       popup.classList.add('actived')
-      this.transactionToUpdate = this.transaction;
-      this.transactionToUpdate.amount = parseInt(this.transactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, ''))
-      localStorage.setItem('updt-transaction-id', this.transactionToUpdate.id);
+      this.canOpenPopUp = true
+
+      localStorage.setItem('updt-transaction', JSON.stringify(this.transactionToUpdate));
       this.parentPopUp.nativeElement.style.display = 'grid'
+
       document.addEventListener('keydown', (e) => {
         if (e.code == 'Escape') {
           this.transactionToUpdate = null;
-          localStorage.removeItem('updt-transaction-id');
-          this.parentPopUp.nativeElement.style.display = 'none'
+          localStorage.removeItem('updt-transaction');
+          this.parentPopUp.nativeElement.style.display = 'none';
+          this.canOpenPopUp = false
         }
       })
+
       popup.addEventListener('click', () => {
         this.transactionToUpdate = null;
-        localStorage.removeItem('updt-transaction-id');
-        this.parentPopUp.nativeElement.style.display = 'none'
+        localStorage.removeItem('updt-transaction');
+        this.parentPopUp.nativeElement.style.display = 'none';
+        this.canOpenPopUp = false
       })
     })
+  }
 
+  changed() {
+    this.transactionsUpdated.emit()
   }
 }

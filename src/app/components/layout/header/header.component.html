@@ -18,7 +18,10 @@
       <p class="text-xl font-bold text-white">transactions.my</p>
     </div>
     <div class="search mt-1">
-      <app-search class="w-fit h-fit relative"></app-search>
+      <app-search
+        class="w-fit h-fit relative"
+        (transactionsUpdated)="change()"
+      ></app-search>
     </div>
   </div>
   <div class="options flex items-center gap-5 cursor-pointer">

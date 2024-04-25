@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
@@ -20,13 +20,11 @@ import { CookieService } from 'ngx-cookie-service';
 export class CreateTransactionComponent implements OnInit {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
   @ViewChild('formDir') formDir!: NgForm
-  @Input() transactionToUpdate?: Transaction | undefined | null;
 
   transactionsForm!: FormGroup
   isLoad: boolean = false;
 
   constructor(private fb: FormBuilder, private transactionsService: TrasactionsService, private cookieService: CookieService) { }
-
 
   ngOnInit(): void {
     this.transactionsForm = this.fb.group({
@@ -54,35 +52,23 @@ export class CreateTransactionComponent implements OnInit {
     this.isLoad = true
     let sessionId = localStorage.getItem('sessionId');
 
-    if (this.transactionToUpdate) {
-      this.transactionsService.update({ ...data, id: localStorage.getItem('updt-transaction-id')! }, sessionId!).subscribe({
-        next: () => { },
-        error: () => { },
-        complete: () => {
-          localStorage.removeItem('request');
-          localStorage.removeItem('limitedItems');
-          this.formDir.resetForm()
-          this.transactionsCreated.emit()
-          this.isLoad = false;
+    this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
+      next: (r) => {
+        if (r) {
+          localStorage.setItem('sessionId', r.sessionId)
         }
-      })
-    } else {
-      this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
-        next: (r) => {
-          if (r) {
-            localStorage.setItem('sessionId', r.sessionId)
-          }
-        },
-        error: () => { },
-        complete: () => {
-          localStorage.removeItem('request');
-          localStorage.removeItem('limitedItems');
-          this.formDir.resetForm()
-          this.transactionsCreated.emit()
-          this.isLoad = false;
-        }
-      })
-    }
+      },
+      error: () => { },
+      complete: () => {
+        localStorage.removeItem('request');
+        localStorage.removeItem('limitedItems');
+        localStorage.removeItem('summary');
+        this.formDir.resetForm()
+        this.transactionsCreated.emit()
+        this.isLoad = false;
+      }
+    })
 
   }
+  
 }
