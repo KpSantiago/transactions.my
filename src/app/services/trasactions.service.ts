@@ -14,35 +14,44 @@ type CreateTransactions = undefined | null | { sessionId: { value: string; maxAg
 export class TrasactionsService {
   constructor(private http: HttpClient) { }
   private baseUrl = environment.apiUrl;
-  get(): Observable<TransactionsRequestGetBody> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+  get(cookie: string): Observable<TransactionsRequestGetBody> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      "Cookie": cookie
+    })
 
     return this.http.get<TransactionsRequestGetBody>(`${this.baseUrl}/transactions/`, {
-      headers: headers, withCredentials: true
+      headers: headers,
+      withCredentials: true
     })
   }
 
-  summary(): Observable<{ summary: { total: number; amount: number | string } }> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+  summary(cookie: string): Observable<{ summary: { total: number; amount: number | string } }> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      "Cookie": cookie
+    })
 
     return this.http.get<{ summary: { total: number; amount: number } }>(`${this.baseUrl}/transactions/summary`, {
-      headers: headers, withCredentials: true
+      headers: headers,
+      withCredentials: true
     })
   }
 
   post(data: Transaction): Observable<CreateTransactions> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', })
 
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, data, {
-      headers: headers, withCredentials: true
+      headers: headers,
     })
   }
 
   endSession(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', })
 
     return this.http.put(`${this.baseUrl}/transactions/end-session`, {}, {
-      headers: headers, withCredentials: true
+      headers: headers,
+      withCredentials: true
     })
   }
 }
