@@ -14,14 +14,14 @@
   <strong
     class="w-[90%] border-b-2 border-solid border-b-white/35 bg-[#181a1b] text-white/70"
   >
-    {{ tranactionToUpdate ? "Update" : "Add a new" }} transaction
+    {{ transactionToUpdate ? "Update" : "Add a new" }} transaction
   </strong>
   <div class="w-[45%] max-w-[400px]">
     <input
       type="text"
       formControlName="title"
       placeholder="Transaction title"
-      [value]="this.tranactionToUpdate?.title"
+      [value]="transactionToUpdate?.title"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
@@ -30,14 +30,14 @@
       type="text"
       formControlName="amount"
       placeholder="Transaction amuount"
-      [value]="this.tranactionToUpdate?.amount"
+      [value]="transactionToUpdate?.amount"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
   <div class="w-[45%] max-w-[400px]">
     <select
       formControlName="type"
-      [value]="this.tranactionToUpdate?.type"
+      [value]="transactionToUpdate?.type"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction type</option>
@@ -48,7 +48,7 @@
   <div class="w-[45%] max-w-[400px]">
     <select
       formControlName="category"
-      [value]="this.tranactionToUpdate?.category"
+      [value]="transactionToUpdate?.category"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction category</option>
@@ -87,7 +87,7 @@
   <button
     class="w-4/5 h-8 max-w-[400px] bg-[#5512cb] hover:bg-[#351d5f] duration-300 rounded-md font-semibold text-white"
   >
-    {{ tranactionToUpdate ? "Update" : "Add" }}
+    {{ transactionToUpdate ? "Update" : "Add" }}
   </button>
   }
 </form>

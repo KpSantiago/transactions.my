@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
@@ -17,10 +17,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './create-transaction.component.css'
 })
 
-export class CreateTransactionComponent implements OnInit, DoCheck {
+export class CreateTransactionComponent implements OnInit {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
   @ViewChild('formDir') formDir!: NgForm
-  @Input() tranactionToUpdate?: Transaction | undefined | null;
+  @Input() transactionToUpdate?: Transaction | undefined | null;
 
   transactionsForm!: FormGroup
   isLoad: boolean = false;
@@ -36,12 +36,7 @@ export class CreateTransactionComponent implements OnInit, DoCheck {
       type: ['', [Validators.required]],
     })
   }
-  ngDoCheck(): void {
-    if (this.tranactionToUpdate) {
-      this.tranactionToUpdate.amount = parseInt(this.tranactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, ''));
 
-    }
-  }
   async onSubmit() {
     if (this.transactionsForm.invalid) {
       setTimeout(() => { this.formDir.resetForm(); this.isLoad = false }, 3000)
@@ -59,8 +54,10 @@ export class CreateTransactionComponent implements OnInit, DoCheck {
     this.isLoad = true
     let sessionId = localStorage.getItem('sessionId');
 
-    if (this.tranactionToUpdate) {
-      this.transactionsService.update({...data, id: localStorage.getItem('updt-transaction-id')!}, sessionId!).subscribe({
+    if (this.transactionToUpdate) {
+      this.transactionsService.update({ ...data, id: localStorage.getItem('updt-transaction-id')! }, sessionId!).subscribe({
+        next: () => { },
+        error: () => { },
         complete: () => {
           localStorage.removeItem('request');
           localStorage.removeItem('limitedItems');

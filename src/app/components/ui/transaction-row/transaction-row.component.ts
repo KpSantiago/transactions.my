@@ -48,6 +48,7 @@ export class TransactionRowComponent implements AfterViewInit {
     transaction.addEventListener('dblclick', () => {
       popup.classList.add('actived')
       this.transactionToUpdate = this.transaction;
+      this.transactionToUpdate.amount = parseInt(this.transactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, ''))
       localStorage.setItem('updt-transaction-id', this.transactionToUpdate.id);
       this.parentPopUp.nativeElement.style.display = 'grid'
       document.addEventListener('keydown', (e) => {
