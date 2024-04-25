@@ -60,7 +60,7 @@ export class CreateTransactionComponent implements OnInit, DoCheck {
     let sessionId = localStorage.getItem('sessionId');
 
     if (this.tranactionToUpdate) {
-      this.transactionsService.update(data, sessionId!).subscribe({
+      this.transactionsService.update({...data, id: localStorage.getItem('updt-transaction-id')!}, sessionId!).subscribe({
         complete: () => {
           localStorage.removeItem('request');
           localStorage.removeItem('limitedItems');
