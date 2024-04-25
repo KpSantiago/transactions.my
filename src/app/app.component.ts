@@ -20,10 +20,13 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
     AllTransactionsComponent,
     CategoriesComponent,
     ExpenseChartComponent,
-    HttpClientModule
+    HttpClientModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [
+    TrasactionsService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
