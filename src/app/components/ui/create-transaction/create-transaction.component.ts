@@ -51,18 +51,13 @@ export class CreateTransactionComponent implements OnInit {
 
     this.isLoad = true
     this.transactionsService.post(data).subscribe({
-      next: async (r) => {
-        if (r) {
-          let sessionId = r.sessionId;
-          this.cookieService.set("sessionId", sessionId.value, sessionId.maxAge, sessionId.path)
-        }
+      next: () => { },
+      error: () => { },
+      complete: async () => {
+        this.isLoad = false;
         localStorage.removeItem('request');
         localStorage.removeItem('limitedItems');
         this.formDir.resetForm()
-      },
-      error: (e) => { },
-      complete: async () => {
-        this.isLoad = false;
         this.transactionsCreated.emit()
       }
     })

@@ -37,6 +37,7 @@ export class TrasactionsService {
 
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, data, {
       headers: headers,
+      withCredentials: true,
     })
   }
 
