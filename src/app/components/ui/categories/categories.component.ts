@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectionStrategy, Component, DoCheck, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexNonAxisChartSeries,
@@ -11,7 +11,6 @@ import {
   ApexTheme
 } from "ng-apexcharts";
 import { Transaction } from '../transaction-row/transaction-row.component';
-import { CookieService } from 'ngx-cookie-service';
 
 export interface ChartOptions {
   series: ApexNonAxisChartSeries;
@@ -42,8 +41,7 @@ export class CategoriesComponent implements OnInit, OnChanges {
   @Input() transactions?: Transaction[] | null;
   chartOptions!: Partial<ChartOptions>
   labels: string[] = [];
-  constructor(private cookieService: CookieService) { }
-  isNull: boolean = this.cookieService.get("sessionId") ? false : true;
+  constructor() { }
   hasDebitTransactions = true;
 
   ngOnInit(): void {

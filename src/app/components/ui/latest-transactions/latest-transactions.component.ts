@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Output } from '@angular/core';
 import { Transaction, TransactionRowComponent } from '../transaction-row/transaction-row.component';
 
 @Component({
@@ -14,7 +14,6 @@ export class LatestTransactionsComponent implements DoCheck {
   @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   constructor() { }
-  isNull: boolean = this.cookieService.get('sessionId') ? false : true;
 
   ngDoCheck(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')

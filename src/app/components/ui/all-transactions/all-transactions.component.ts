@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, Outpu
 import { Transaction, TransactionRowComponent } from '../transaction-row/transaction-row.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 export interface TransactionsRequestGetBody {
   total: number;
@@ -23,8 +22,7 @@ export class AllTransactionsComponent implements DoCheck {
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   transactionsPaginated?: Transaction[];
   pages: number = 1;
-  constructor(private route: ActivatedRoute, private cookieService: CookieService) { }
-  isNull: boolean = this.cookieService.get('sessionId') ? false : true;
+  constructor(private route: ActivatedRoute) { }
   page: number = 1
 
   ngDoCheck(): void {

@@ -41,16 +41,12 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
     if (!this.isUnknown) {
       this.tranctionsService.endSession(localStorage.getItem('sessionId')!).subscribe({
         next: async () => {
-          this.cookieService.delete('sessionId');
 
-          let hasSessionId = this.cookieService.get('sessionId') ?? null
-          if (!hasSessionId) {
             localStorage.removeItem('request');
             localStorage.removeItem('limitedItems')
             localStorage.removeItem('summary');
             localStorage.removeItem('sessionId')
             location.reload()
-          }
         }
       })
     }
