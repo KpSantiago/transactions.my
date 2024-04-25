@@ -96,6 +96,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngDoCheck(): void {
     this.hasSessionId = this.cookieService.get('sessionId');
+    console.log(this.hasSessionId)
     if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
       this.componentChanged()
     }
