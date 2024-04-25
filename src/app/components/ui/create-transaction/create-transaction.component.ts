@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TrasactionsService } from '../../../services/trasactions.service';
+import { CreateTransactions, TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-create-transaction',
@@ -58,7 +60,6 @@ export class CreateTransactionComponent implements OnInit {
         localStorage.removeItem('request');
         localStorage.removeItem('limitedItems');
         this.formDir.resetForm()
-        this.transactionsCreated.emit()
       }
     })
   }

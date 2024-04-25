@@ -5,7 +5,7 @@ import { Transaction } from '../components/ui/transaction-row/transaction-row.co
 import { TransactionsRequestGetBody } from '../components/ui/all-transactions/all-transactions.component';
 import { environment } from '../../environments/environment.development';
 
-type CreateTransactions = undefined | null | { sessionId: { value: string; maxAge: number; path: string } }
+export type CreateTransactions = undefined | null | { sessionId: { value: string; maxAge: number; path: string } }
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class TrasactionsService {
 
     return this.http.get<TransactionsRequestGetBody>(`${this.baseUrl}/transactions/`, {
       headers: headers,
-      withCredentials: true
+      withCredentials: true,
     })
   }
 
@@ -28,14 +28,14 @@ export class TrasactionsService {
 
     return this.http.get<{ summary: { total: number; amount: number } }>(`${this.baseUrl}/transactions/summary`, {
       headers: headers,
-      withCredentials: true
+      withCredentials: true,
     })
   }
 
   post(data: Transaction): Observable<CreateTransactions> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
 
-    return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, data, {
+    return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, JSON.stringify(data), {
       headers: headers,
       withCredentials: true,
     })
