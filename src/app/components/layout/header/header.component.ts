@@ -9,6 +9,9 @@ import { SearchComponent } from '../../ui/search/search.component';
   imports: [
     SearchComponent
   ],
+  providers: [
+    TrasactionsService
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
