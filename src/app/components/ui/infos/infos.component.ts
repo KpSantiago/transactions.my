@@ -23,9 +23,14 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class InfosComponent {
   @Output() transactionsCreated: EventEmitter<any> = new EventEmitter()
+  @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   @Input() transactions!: Transaction[] | null;
 
   changed() {
     this.transactionsCreated.emit()
+  }
+
+  updated() {
+    this.transactionsUpdated.emit()
   }
 }

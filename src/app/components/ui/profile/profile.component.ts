@@ -14,8 +14,8 @@ export class ProfileComponent implements DoCheck {
   user: string = '';
   summary: { total: number; amount: number | string } = JSON.parse(localStorage.getItem('summary') || 'null');
   ngDoCheck(): void {
-    if (this.cookieService.get('sessionId')) {
-      this.user = this.cookieService.get('sessionId').split('-').slice(3).toString().replaceAll(',', '-');
+    if (localStorage.getItem('sessionId')) {
+      this.user = localStorage.getItem('sessionId')!.split('-').slice(3).toString().replaceAll(',', '-');
     }
     this.summary = JSON.parse(localStorage.getItem('summary') || 'null')
   }
