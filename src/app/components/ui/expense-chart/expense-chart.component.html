@@ -1,5 +1,5 @@
 <div class="h-[280px] bg-[#181a1b] rounded-xl shadow-md p-3">
-  @if (transactions && transactions.length > 0) {
+  @if (transactions && transactions.length > 0 && chartOptions) {
   <apx-chart
     [series]="chartOptions.series!"
     [chart]="chartOptions.chart!"

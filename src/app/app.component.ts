@@ -40,11 +40,11 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   request: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   numberLimitedTransactions: Transaction[] | null = JSON.parse(localStorage.getItem('limitedItems') || 'null');
   changeComponents: boolean = false;
-  hasSessionId: string | undefined = this.cookieService.get("sessionId");
+  hasSessionId: string | null = localStorage.getItem("sessionId");
 
   ngOnInit(): void {
     if ((!this.request || !this.numberLimitedTransactions) && this.hasSessionId) {
-      this.trasactionsService.get().subscribe({
+      this.trasactionsService.get(this.hasSessionId).subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
           this.request = r.transactions;
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         }
       })
 
-      this.trasactionsService.summary().subscribe({
+      this.trasactionsService.summary(this.hasSessionId).subscribe({
         next: async (r) => {
           r.summary.amount = r.summary.amount.toLocaleString("pt-BR", {
             style: "currency",
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.hasSessionId = this.cookieService.get('sessionId');
+    this.hasSessionId = localStorage.getItem('sessionId');
     if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
       this.componentChanged()
     }
@@ -103,7 +103,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   componentChanged() {
     if (this.hasSessionId) {
-      this.trasactionsService.get().subscribe({
+      this.trasactionsService.get(this.hasSessionId).subscribe({
         next: async (r) => {
           this.numberLimitedTransactions = []
           this.request = r.transactions;
@@ -127,7 +127,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         }
       })
 
-      this.trasactionsService.summary().subscribe({
+      this.trasactionsService.summary(this.hasSessionId).subscribe({
         next: async (r) => {
           r.summary.amount = r.summary.amount.toLocaleString("pt-BR", {
             style: "currency",

@@ -21,7 +21,7 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
   @Output() sessionEnded: EventEmitter<boolean> = new EventEmitter()
   @ViewChild('headerButton') headerButton!: ElementRef<HTMLElement>;
   constructor(private cookieService: CookieService, private tranctionsService: TrasactionsService) { }
-  isUnknown: boolean = this.cookieService.get('sessionId') ? false : true
+  isUnknown: boolean = localStorage.getItem('sessionId') ? false : true
 
   ngAfterViewInit(): void {
     let headerBtn = this.headerButton.nativeElement
@@ -35,12 +35,12 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.isUnknown = this.cookieService.get('sessionId') ? false : true
+    this.isUnknown = localStorage.getItem('sessionId') ? false : true
   }
 
   endSession() {
     if (!this.isUnknown) {
-      this.tranctionsService.endSession().subscribe({
+      this.tranctionsService.endSession(localStorage.getItem('sessionId')!).subscribe({
         next: async () => {
           this.cookieService.delete('sessionId');
 
@@ -49,6 +49,7 @@ export class HeaderComponent implements AfterViewInit, DoCheck {
             localStorage.removeItem('request');
             localStorage.removeItem('limitedItems')
             localStorage.removeItem('summary');
+            localStorage.removeItem('sessionId')
             location.reload()
           }
         }

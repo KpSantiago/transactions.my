@@ -52,15 +52,19 @@ export class CreateTransactionComponent implements OnInit {
     let data: Transaction = { ...this.transactionsForm.value, amount };
 
     this.isLoad = true
-    this.transactionsService.post(data).subscribe({
-      next: () => { },
-      error: () => { },
-      complete: async () => {
-        this.isLoad = false;
+    let sessionId = localStorage.getItem('sessionId')
+    this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
+      next: (r) => {
+        if (r) {
+          localStorage.setItem('sessionId', r.sessionId)
+        }
         localStorage.removeItem('request');
         localStorage.removeItem('limitedItems');
         this.formDir.resetForm()
-      }
+        this.transactionsCreated.emit()
+        this.isLoad = false;
+      },
+      error: () => { },
     })
   }
 }

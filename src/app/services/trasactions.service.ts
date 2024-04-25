@@ -5,7 +5,7 @@ import { Transaction } from '../components/ui/transaction-row/transaction-row.co
 import { TransactionsRequestGetBody } from '../components/ui/all-transactions/all-transactions.component';
 import { environment } from '../../environments/environment.development';
 
-export type CreateTransactions = undefined | null | { sessionId: { value: string; maxAge: number; path: string } }
+export type CreateTransactions = undefined | null | { sessionId: string }
 
 @Injectable({
   providedIn: 'root'
@@ -14,39 +14,37 @@ export type CreateTransactions = undefined | null | { sessionId: { value: string
 export class TrasactionsService {
   constructor(private http: HttpClient) { }
   private baseUrl = environment.apiUrl;
-  get(): Observable<TransactionsRequestGetBody> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+  get(sessionId: string): Observable<TransactionsRequestGetBody> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Sessionid': `${sessionId}` })
 
     return this.http.get<TransactionsRequestGetBody>(`${this.baseUrl}/transactions/`, {
       headers: headers,
-      withCredentials: true,
     })
   }
 
-  summary(): Observable<{ summary: { total: number; amount: number | string } }> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+  summary(sessionId: string): Observable<{ summary: { total: number; amount: number | string } }> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Sessionid': `${sessionId}` })
 
     return this.http.get<{ summary: { total: number; amount: number } }>(`${this.baseUrl}/transactions/summary`, {
       headers: headers,
-      withCredentials: true,
     })
   }
 
-  post(data: Transaction): Observable<CreateTransactions> {
+  post(data: Transaction, sessionId?: string): Observable<CreateTransactions> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
-
+    if (sessionId) {
+      headers = headers.append('Sessionid', sessionId)
+    }
     return this.http.post<CreateTransactions>(`${this.baseUrl}/transactions/`, JSON.stringify(data), {
       headers: headers,
-      withCredentials: true,
     })
   }
 
-  endSession(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+  endSession(sessionId: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8', 'Sessionid': `${sessionId}` })
 
     return this.http.put(`${this.baseUrl}/transactions/end-session`, {}, {
       headers: headers,
-      withCredentials: true
     })
   }
 }
