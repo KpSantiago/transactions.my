@@ -38,12 +38,8 @@ export class CreateTransactionComponent implements OnInit, DoCheck {
   }
   ngDoCheck(): void {
     if (this.tranactionToUpdate) {
-      this.transactionsForm = this.fb.group({
-        title: [this.tranactionToUpdate.title, [Validators.required]],
-        amount: [parseInt(this.tranactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, '')), [Validators.required]],
-        category: [this.tranactionToUpdate.category, [Validators.required]],
-        type: [this.tranactionToUpdate.type, [Validators.required]],
-      })
+      this.tranactionToUpdate.amount = parseInt(this.tranactionToUpdate.amount.toString().replaceAll(/[\-+R$]/g, ''));
+
     }
   }
   async onSubmit() {

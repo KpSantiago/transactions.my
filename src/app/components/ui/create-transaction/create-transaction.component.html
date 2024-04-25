@@ -21,6 +21,7 @@
       type="text"
       formControlName="title"
       placeholder="Transaction title"
+      [value]="this.tranactionToUpdate?.title"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
@@ -29,12 +30,14 @@
       type="text"
       formControlName="amount"
       placeholder="Transaction amuount"
+      [value]="this.tranactionToUpdate?.amount"
       class="w-full text-white border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     />
   </div>
   <div class="w-[45%] max-w-[400px]">
     <select
       formControlName="type"
+      [value]="this.tranactionToUpdate?.type"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction type</option>
@@ -45,6 +48,7 @@
   <div class="w-[45%] max-w-[400px]">
     <select
       formControlName="category"
+      [value]="this.tranactionToUpdate?.category"
       class="text-white w-full border-2 border-solid border-white/50 bg-[#181a1b] outline-2 outline-[#5512cb] px-2 h-8 rounded-md"
     >
       <option disabled>Transaction category</option>
