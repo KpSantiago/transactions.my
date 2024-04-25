@@ -8,7 +8,6 @@ import {
   NgApexchartsModule,
 } from "ng-apexcharts";
 import { Transaction } from '../transaction-row/transaction-row.component';
-import { CookieService } from 'ngx-cookie-service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -35,7 +34,7 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
   @ViewChild('chart') chart!: ChartComponent;
   @Input() transactions?: Transaction[] | null;
   chartOptions!: Partial<ChartOptions>;
-  constructor(private cookieService: CookieService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')

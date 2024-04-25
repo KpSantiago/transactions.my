@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Transaction, TransactionRowComponent } from '../transaction-row/transaction-row.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-latest-transactions',
@@ -14,7 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LatestTransactionsComponent implements DoCheck {
   @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   transactions: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
-  constructor(private cookieService: CookieService) { }
+  constructor() { }
   isNull: boolean = this.cookieService.get('sessionId') ? false : true;
 
   ngDoCheck(): void {

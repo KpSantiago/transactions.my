@@ -1,5 +1,4 @@
 import { Component, DoCheck } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class ProfileComponent implements DoCheck {
-  constructor(private cookieService: CookieService) { }
+  constructor() { }
   user: string = '';
   summary: { total: number; amount: number | string } = JSON.parse(localStorage.getItem('summary') || 'null');
   ngDoCheck(): void {

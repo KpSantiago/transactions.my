@@ -4,7 +4,6 @@ import { ProfileComponent } from '../profile/profile.component';
 import { LatestTransactionsComponent } from '../latest-transactions/latest-transactions.component';
 import { CreateTransactionComponent } from '../create-transaction/create-transaction.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-infos',

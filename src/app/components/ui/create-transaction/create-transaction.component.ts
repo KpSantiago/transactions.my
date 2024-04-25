@@ -2,7 +2,6 @@ import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } fr
 import { FormBuilder, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TrasactionsService } from '../../../services/trasactions.service';
 import { Transaction } from '../transaction-row/transaction-row.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-create-transaction',
@@ -24,7 +23,7 @@ export class CreateTransactionComponent implements OnInit {
   transactionsForm!: FormGroup
   isLoad: boolean = false;
 
-  constructor(private fb: FormBuilder, private transactionsService: TrasactionsService, private cookieService: CookieService) { }
+  constructor(private fb: FormBuilder, private transactionsService: TrasactionsService) { }
 
   ngOnInit(): void {
     this.transactionsForm = this.fb.group({

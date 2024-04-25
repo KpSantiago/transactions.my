@@ -1,6 +1,5 @@
 import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, OnChanges, Output, ViewChild } from '@angular/core';
 import { TrasactionsService } from '../../../services/trasactions.service';
-import { CookieService } from 'ngx-cookie-service';
 import { SearchComponent } from '../../ui/search/search.component';
 
 @Component({
@@ -20,7 +19,7 @@ import { SearchComponent } from '../../ui/search/search.component';
 export class HeaderComponent implements AfterViewInit, DoCheck {
   @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   @ViewChild('headerButton') headerButton!: ElementRef<HTMLElement>;
-  constructor(private cookieService: CookieService, private tranctionsService: TrasactionsService) { }
+  constructor(private tranctionsService: TrasactionsService) { }
   isUnknown: boolean = localStorage.getItem('sessionId') ? false : true
 
   ngAfterViewInit(): void {

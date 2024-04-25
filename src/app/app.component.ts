@@ -6,7 +6,6 @@ import { AllTransactionsComponent } from './components/ui/all-transactions/all-t
 import { CategoriesComponent } from './components/ui/categories/categories.component';
 import { ExpenseChartComponent } from './components/ui/expense-chart/expense-chart.component';
 import { TrasactionsService } from './services/trasactions.service';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { Transaction } from './components/ui/transaction-row/transaction-row.component';
 
@@ -35,7 +34,7 @@ import { Transaction } from './components/ui/transaction-row/transaction-row.com
 export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   @ViewChild('profileButton') profileButton!: ElementRef<HTMLElement>
 
-  constructor(private trasactionsService: TrasactionsService, private cookieService: CookieService) { }
+  constructor(private trasactionsService: TrasactionsService) { }
 
   request: Transaction[] | null = JSON.parse(localStorage.getItem('request') || 'null');
   numberLimitedTransactions: Transaction[] | null = JSON.parse(localStorage.getItem('limitedItems') || 'null');

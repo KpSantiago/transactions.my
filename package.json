@@ -20,7 +20,6 @@
     "@angular/router": "^17.3.0",
     "apexcharts": "^3.49.0",
     "ng-apexcharts": "^1.10.0",
-    "ngx-cookie-service": "^17.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
