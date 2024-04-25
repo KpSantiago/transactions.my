@@ -58,6 +58,16 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
             }
           }
 
+          this.request = this.request.map(t => {
+            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            return t;
+          })
+
+          this.request = this.numberLimitedTransactions.map(t => {
+            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            return t;
+          })
+
           localStorage.setItem('request', JSON.stringify(this.request));
           localStorage.setItem('limitedItems', JSON.stringify(this.numberLimitedTransactions));
         },
@@ -96,9 +106,6 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngDoCheck(): void {
     this.hasSessionId = localStorage.getItem('sessionId');
-    // if ((!this.numberLimitedTransactions || !this.request) && this.hasSessionId) {
-    //   this.componentChanged()
-    // }
   }
 
   componentChanged() {
@@ -116,6 +123,17 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
               this.numberLimitedTransactions.push(r.transactions[i]);
             }
           }
+
+          this.request = this.request.map(t => {
+            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            return t;
+          })
+
+          this.request = this.numberLimitedTransactions.map(t => {
+            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+            return t;
+          })
+
           localStorage.setItem('request', JSON.stringify(this.request));
           localStorage.setItem('limitedItems', JSON.stringify(this.numberLimitedTransactions));
         },

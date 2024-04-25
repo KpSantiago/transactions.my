@@ -31,10 +31,6 @@ export class AllTransactionsComponent implements DoCheck {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
     if (this.transactions && this.transactions!.length > 0) {
       this.page = Number(this.route.snapshot.queryParamMap.get('p') || 1)
-      this.transactions.forEach(r => r.amount = r.amount.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      }));
       this.transactionsPaginated = this.transactions.slice((this.page - 1) * 4, this.page * 4)
       this.pages = Math.ceil(this.transactions.length / 4)
     }

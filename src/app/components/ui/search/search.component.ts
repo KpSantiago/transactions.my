@@ -40,13 +40,6 @@ export class SearchComponent implements OnInit, DoCheck {
   search(e: Event): void {
     let select: 'title' | 'amount' | 'created_at' | 'type' | 'category' = this.selectForm.get('select')?.value
     if (this.transactions && select) {
-
-      this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-        return t
-      })
-
       const target = e.target as HTMLInputElement;
 
       this.searchedItems = this.transactions.filter(r => {
@@ -56,7 +49,7 @@ export class SearchComponent implements OnInit, DoCheck {
       })
     }
   }
-  
+
   changed() {
     this.transactionsUpdated.emit()
   }

@@ -20,13 +20,6 @@ export class LatestTransactionsComponent implements DoCheck {
   ngDoCheck(): void {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
     if (this.transactions && this.transactions!.length > 0) {
-      this.transactions = this.transactions.map(r => {
-        r.amount = r.amount.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL'
-        });
-        return r
-      })
       if (this.transactions.length > 3) {
         this.transactions.length = 3
       }

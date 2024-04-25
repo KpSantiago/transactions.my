@@ -1,4 +1,4 @@
-import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { UpdateTransactionComponent } from '../update-transaction/update-transaction.component';
 
 export interface Transaction {
@@ -47,7 +47,6 @@ export class TransactionRowComponent implements AfterViewInit {
 
   ngOnInit() {
     this.transactionToUpdate = this.transaction;
-
     this.transactionToUpdate!.amount = this.transactionToUpdate!.amount.toLocaleString('en-US', {
       style: 'currency',
       currency: 'USD'
