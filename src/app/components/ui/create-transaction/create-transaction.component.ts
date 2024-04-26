@@ -41,7 +41,9 @@ export class CreateTransactionComponent implements OnInit {
       return;
     }
 
-    let amount = Number(this.transactionsForm.value.amount.toString().replaceAll(',', '.').trim())
+    let amount = parseFloat(this.transactionsForm.value.amount.toString().replaceAll(',', '.').replaceAll('R$', '').replace('-', ''));
+
+    amount = this.transactionsForm.value.type == 'debit' ? amount * -1 : amount;
 
     if (isNaN(amount)) {
       this.transactionsForm.setErrors(Validators.requiredTrue)

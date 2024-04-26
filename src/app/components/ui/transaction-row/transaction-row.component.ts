@@ -60,14 +60,8 @@ export class TransactionRowComponent implements AfterViewInit, DoCheck {
 
     transaction.addEventListener('dblclick', () => {
       this.transactionToUpdate = this.transaction;
-      this.transactionToUpdate!.amount = this.transactionToUpdate!.amount
-        .toString()
-        .replaceAll(/[\-+R$]/g, '')
-        .replaceAll('.', ',')
-        .split(',')
-        .slice(0, 1)
-        .toString()
-        .replace(',', '').trim();
+      let amount = parseFloat(this.transactionToUpdate.amount.toString().replaceAll(',', '.').replaceAll('R$', '').replace('-', ''));
+      this.transactionToUpdate.amount = this.transactionToUpdate.type == 'debit' ? amount * -1 : amount;
       popup.classList.add('actived')
       this.canOpenPopUp = true
 

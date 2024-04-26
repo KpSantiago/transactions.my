@@ -41,11 +41,16 @@ export class UpdateTransactionComponent implements OnInit {
 
       return;
     }
-    let amount = Number(this.transactionsUpdateForm.value.amount.toString().replaceAll(',', '.').trim())
+    
+    let amount = parseFloat(this.transactionsUpdateForm.value.amount.toString().replaceAll(',', '.').replaceAll('R$', '').replace('-', ''));
+
+    amount = this.transactionsUpdateForm.value.type == 'debit' ? amount * -1 : amount;
+
     if (isNaN(amount)) {
       this.transactionsUpdateForm.setErrors(Validators.requiredTrue)
       return;
     }
+
     let data: Transaction = { ...this.transactionsUpdateForm.value, amount };
     this.isLoad = true
     let sessionId = localStorage.getItem('sessionId');
