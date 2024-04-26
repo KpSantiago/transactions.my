@@ -10,6 +10,5 @@ uma transação e você recebe um session id por meio de cookies que permite voc
 - **Tecnologias:**
   - Angular 17 e standalone components
   - Apexchart
-  - NpxCookieService
   - Tailwind CSS
   - API REST feita por mim
