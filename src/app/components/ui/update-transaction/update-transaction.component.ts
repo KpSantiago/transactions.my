@@ -41,7 +41,7 @@ export class UpdateTransactionComponent implements OnInit {
 
       return;
     }
-    let amount = Number(this.transactionsUpdateForm.value['amount'])
+    let amount = Number(this.transactionsUpdateForm.value.amount.toString().replaceAll(',', '.').trim())
     if (isNaN(amount)) {
       this.transactionsUpdateForm.setErrors(Validators.requiredTrue)
       return;

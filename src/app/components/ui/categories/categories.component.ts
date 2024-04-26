@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit, OnChanges {
     if (this.transactions && this.transactions!.length > 0) {
       this.hasDebitTransactions = this.transactions.find(t => t.type == 'debit') ? true : false;
       this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').trim();
+        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').replaceAll(',', '.').trim();
 
         return t
       })
@@ -76,7 +76,7 @@ export class CategoriesComponent implements OnInit, OnChanges {
     if (this.changed == true && this.transactions && this.transactions!.length > 0) {
       this.hasDebitTransactions = this.transactions.find(t => t.type == 'debit') ? true : false;
       this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').trim();
+        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').replaceAll(',', '.').trim();
 
         return t
       })

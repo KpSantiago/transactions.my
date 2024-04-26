@@ -41,7 +41,7 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
 
     if (this.transactions && this.transactions.length > 0) {
       this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').trim();
+        t.amount = t.amount.toString().replaceAll('R$', '').replaceAll(' ', '').replaceAll(',', '.').trim();
 
         return t
       })
@@ -73,8 +73,7 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null');
     if (this.changed == true && this.transactions && this.transactions.length > 0) {
       this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').trim();
-
+        t.amount = t.amount.toString().replaceAll(/[\R$]/g, '').replaceAll(',', '.').trim();
 
         return t
       })

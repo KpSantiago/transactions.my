@@ -1,4 +1,4 @@
-import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, DoCheck, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { UpdateTransactionComponent } from '../update-transaction/update-transaction.component';
 
 export interface Transaction {
@@ -21,7 +21,7 @@ export interface Transaction {
 })
 
 
-export class TransactionRowComponent implements AfterViewInit {
+export class TransactionRowComponent implements AfterViewInit, DoCheck {
   @Output() transactionsUpdated: EventEmitter<any> = new EventEmitter()
   @ViewChild('popup') popup!: ElementRef<HTMLElement>
   @ViewChild('trion') trion!: ElementRef<HTMLElement>
@@ -45,6 +45,14 @@ export class TransactionRowComponent implements AfterViewInit {
       'job': { icon: 'material-symbols:work-history-rounded', color: 'border-[#a9d] text-[#a9d] bg-[#a9d3]' },
       'others': { icon: 'mdi:dots-grid', color: 'border-[#ddd9] text-[#ddd9] bg-[#ddd3]' }
     }
+
+
+  ngDoCheck(): void {
+    this.transaction.amount = this.transaction.amount.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+  }
 
   ngAfterViewInit(): void {
     const popup = this.popup.nativeElement;

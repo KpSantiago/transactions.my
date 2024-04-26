@@ -41,7 +41,8 @@ export class CreateTransactionComponent implements OnInit {
       return;
     }
 
-    let amount = Number(this.transactionsForm.value['amount'])
+    let amount = Number(this.transactionsForm.value.amount.toString().replaceAll(',', '.').trim())
+
     if (isNaN(amount)) {
       this.transactionsForm.setErrors(Validators.requiredTrue)
       return;

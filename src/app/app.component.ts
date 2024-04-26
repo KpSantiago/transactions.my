@@ -57,16 +57,6 @@ export class AppComponent implements OnInit, AfterViewInit {
             }
           }
 
-          this.request = this.request.map(t => {
-            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            return t;
-          })
-
-          this.request = this.numberLimitedTransactions.map(t => {
-            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            return t;
-          })
-
           localStorage.setItem('request', JSON.stringify(this.request));
           localStorage.setItem('limitedItems', JSON.stringify(this.numberLimitedTransactions));
         },
@@ -118,16 +108,6 @@ export class AppComponent implements OnInit, AfterViewInit {
               this.numberLimitedTransactions.push(r.transactions[i]);
             }
           }
-
-          this.request = this.request.map(t => {
-            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            return t;
-          })
-
-          this.request = this.numberLimitedTransactions.map(t => {
-            t.amount = t.amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            return t;
-          })
 
           localStorage.setItem('request', JSON.stringify(this.request));
           localStorage.setItem('limitedItems', JSON.stringify(this.numberLimitedTransactions));
