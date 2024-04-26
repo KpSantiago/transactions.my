@@ -40,11 +40,13 @@ export class ExpenseChartComponent implements OnChanges, OnInit {
     this.transactions = JSON.parse(localStorage.getItem('request') || 'null')
 
     if (this.transactions && this.transactions.length > 0) {
-      this.transactions = this.transactions.map(t => {
-        t.amount = t.amount.toString().replaceAll('R$', '').replaceAll(' ', '').replaceAll(',', '.').trim();
+      // this.transactions = this.transactions.map(t => {
+      //   t.amount = t.amount.toString().replaceAll('R$', '');
 
-        return t
-      })
+      //   return t
+      // })
+
+      console.log(this.transactions)
       let date = new Date()
       let thisMonth = date.getMonth() + 1
       let thisYear = date.getFullYear()

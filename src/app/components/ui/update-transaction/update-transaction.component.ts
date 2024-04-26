@@ -46,8 +46,6 @@ export class UpdateTransactionComponent implements OnInit {
 
     let amount = parseFloat(number);
 
-    amount = this.transactionsUpdateForm.value.type == 'debit' ? amount * -1 : amount;
-
     if (isNaN(amount)) {
       this.transactionsUpdateForm.setErrors(Validators.requiredTrue)
       return;

@@ -45,8 +45,6 @@ export class CreateTransactionComponent implements OnInit {
 
     let amount = parseFloat(number);
 
-    amount = this.transactionsForm.value.type == 'debit' ? amount * -1 : amount;
-
     if (isNaN(amount)) {
       this.transactionsForm.setErrors(Validators.requiredTrue)
       return;
