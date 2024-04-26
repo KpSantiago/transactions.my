@@ -41,7 +41,9 @@ export class CreateTransactionComponent implements OnInit {
       return;
     }
 
-    let amount = parseFloat(this.transactionsForm.value.amount.toString().replaceAll(',', '.').replaceAll('R$', '').replace('-', ''));
+    let number = this.transactionsForm.value.amount.toString().replaceAll(' ', '').replaceAll('.', '').replaceAll('R$', '').replace(',', '.').replace('-', '').replace('+', '')
+
+    let amount = parseFloat(number);
 
     amount = this.transactionsForm.value.type == 'debit' ? amount * -1 : amount;
 
@@ -54,22 +56,22 @@ export class CreateTransactionComponent implements OnInit {
     this.isLoad = true
     let sessionId = localStorage.getItem('sessionId');
 
-    this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
-      next: (r) => {
-        if (r) {
-          localStorage.setItem('sessionId', r.sessionId)
-        }
-        localStorage.removeItem('request');
-        localStorage.removeItem('limitedItems');
-        localStorage.removeItem('summary');
-      },
-      error: () => { },
-      complete: () => {
-        this.formDir.resetForm()
-        this.isLoad = false;
-        this.transactionsCreated.emit()
-      }
-    })
+    // this.transactionsService.post(data, sessionId ? sessionId : undefined).subscribe({
+    //   next: (r) => {
+    //     if (r) {
+    //       localStorage.setItem('sessionId', r.sessionId)
+    //     }
+    //     localStorage.removeItem('request');
+    //     localStorage.removeItem('limitedItems');
+    //     localStorage.removeItem('summary');
+    //   },
+    //   error: () => { },
+    //   complete: () => {
+    //     this.formDir.resetForm()
+    //     this.isLoad = false;
+    //     this.transactionsCreated.emit()
+    //   }
+    // })
 
   }
 

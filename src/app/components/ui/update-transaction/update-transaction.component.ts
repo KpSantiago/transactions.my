@@ -41,8 +41,10 @@ export class UpdateTransactionComponent implements OnInit {
 
       return;
     }
-    
-    let amount = parseFloat(this.transactionsUpdateForm.value.amount.toString().replaceAll(',', '.').replaceAll('R$', '').replace('-', ''));
+
+    let number = this.transactionsUpdateForm.value.amount.toString().replaceAll(' ', '').replaceAll('.', '').replaceAll('R$', '').replace(',', '.').replace('-', '').replace('+', '')
+
+    let amount = parseFloat(number);
 
     amount = this.transactionsUpdateForm.value.type == 'debit' ? amount * -1 : amount;
 
